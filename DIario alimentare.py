@@ -49,3 +49,53 @@ class Diario:
         with open(filename, 'r') as f:
             self.diario = json.load(f)
 
+def main():
+    diario = Diario()
+
+    # Caricamento dei dati dal file JSON se esiste
+    try:
+        diario.load_from_file('diario_alimentare.json')
+    except FileNotFoundError:
+        pass
+
+    while True:
+        print("\n1. Aggiungi pasto")
+        print("2. Visualizza totale calorie giornaliere")
+        print("3. Visualizza riassunto settimanale")
+        print("4. Esci")
+
+        scelta = input("Scelta: ")
+
+        if scelta == '1':
+            nome_past = input("Inserisci il nome del pasto: ")
+            pasto = Pasto(nome_past)
+            while True:
+                nome_alimento = input("Inserisci il nome dell'alimento (o 'fine' per terminare): ")
+                if nome_alimento.lower() == 'fine':
+                    break
+                calorie = float(input("Inserisci le calorie: "))
+                proteine = float(input("Inserisci le proteine: "))
+                carboidrati = float(input("Inserisci i carboidrati: "))
+                grassi = float(input("Inserisci i grassi: "))
+                alimento = Alimento(nome_alimento, calorie, proteine, carboidrati, grassi)
+                pasto.aggiungi_alimento(alimento)
+            data = input("Inserisci la data del pasto (YYYY-MM-DD): ")
+            diario.aggiungi_pasto(data, pasto)
+            diario.save_to_file('diario_alimentare.json')
+            print("Pasto aggiunto con successo!")
+        elif scelta == '2':
+            data = input("Inserisci la data (YYYY-MM-DD): ")
+            print(f"Totale calorie giornaliere per il {data}: {diario.totale_calorie_giornaliere(data)}")
+        elif scelta == '3':
+            print("Riassunto settimanale delle calorie giornaliere:")
+            riassunto_settimana = diario.riassunto_settimanale()
+            for data, totale_calorie in riassunto_settimana.items():
+                print(f"{data}: {totale_calorie}")
+        elif scelta == '4':
+            break
+        else:
+            print("Scelta non valida, riprova.")
+
+if __name__ == "__main__":
+    main()
+
