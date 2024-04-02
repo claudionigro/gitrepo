@@ -57,7 +57,7 @@ def main():
         diario.load_from_file('diario_alimentare.json')
     except FileNotFoundError:
         pass
-
+#menu
     while True:
         print("\n1. Aggiungi pasto")
         print("2. Visualizza totale calorie giornaliere")
@@ -98,4 +98,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
