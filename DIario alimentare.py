@@ -2,11 +2,11 @@ import json
 from datetime import datetime, timedelta
 class Alimento:
         def __init__(self, nome, calorie, proteine, carboidrati, grassi):
-        self.nome = nome
-        self.calorie = calorie
-        self.proteine = proteine
-        self.carboidrati = carboidrati
-        self.grassi = grassi
+            self.nome = nome
+            self.calorie = calorie
+            self.proteine = proteine
+            self.carboidrati = carboidrati
+            self.grassi = grassi
 class Pasto:
     def __init__(self):
         self.alimenti = []
